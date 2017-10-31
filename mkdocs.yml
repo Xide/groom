@@ -14,8 +14,7 @@ markdown_extensions:
   # For notes and stuff: http://squidfunk.github.io/mkdocs-material/extensions/admonition/
   - admonition
   # Noices code blocks : http://squidfunk.github.io/mkdocs-material/extensions/codehilite/
-  - codehilite:
-    linenums:true
+  - codehilite
 
   - pymdownx.arithmatex
   - pymdownx.betterem(smart_enable=all)
