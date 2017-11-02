@@ -10,4 +10,4 @@ jobs:
     - ENCRYPTION_LABEL: d2b4ebb4158b
     - COMMIT_AUTHOR_EMAIL: "germain.gau@gmail.com"
     on:
-      branch: master
+      branch: develop
