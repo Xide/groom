@@ -1,4 +1,4 @@
-<img src="./assets/images/logo.png" width="400" height="312" alt="Groom">
+<img src="./docs/pages/assets/images/logo.png" width="400" height="312" alt="Groom">
 
 ---
 
