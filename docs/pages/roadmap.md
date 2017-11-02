@@ -12,8 +12,7 @@
 
 
 !!! warning
-    The Ansible` will be much slower
-    to provision ephemeral instances than `packer`, as
+    Ansible will be much slower to provision ephemeral instances than `packer`, as
     by design it operate at runtime, and have to execute for each instance creation. When possible, the usage
     of whatever + `packer` is advised, as this technique allow you to provision your image ahead of time.
 
