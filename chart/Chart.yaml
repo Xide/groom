@@ -1,0 +1,4 @@
+apiVersion: v1
+description: groom, a ephemeral deployments orchestrator.
+name: groom
+version: 0.1.0
