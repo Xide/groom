@@ -1,5 +1,6 @@
 .travis/deploy_key
-
+*.tgz
+*.tar.gz
 
 # Created by https://www.gitignore.io/api/vim,linux,emacs,python,ansible,vagrant
 
