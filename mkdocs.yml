@@ -1,8 +1,14 @@
 site_name: Groom
 site_description: Groom orchestrate and expose ephemeral application deployments on top of Kubernetes.
 site_author: Germain GAU
-site_favicon: assets/favicon.ico
-theme: 'material'
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue grey'
+    accent: 'pink'
+  logo: assets/images/logo_128.ico
+  favicon: assets/images/favicon.ico
+
 docs_dir: ./docs/pages
 pages:
   - Index: index.md
