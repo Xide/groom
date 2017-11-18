@@ -8,7 +8,7 @@ function push_docker_image {
   echo "Pushing docker image $1"
   if [ "$branch" == "master" ]; then
     destination="$image:stable"
-  elif [ "$branch" == "develop"]; then
+  elif [ "$branch" == "develop" ]; then
     destination="$image:latest"
   else
     destination="$image-unstable:$sane_branch-$commit"
