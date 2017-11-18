@@ -20,4 +20,4 @@ jobs:
       branch: develop
 
   - stage: deploy
-    script: bash .travis/deploy_server-store.sh
+    script: bash .travis/services/deploy_server-store.sh
