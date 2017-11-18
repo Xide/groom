@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source ../utils.sh
+source .travis/utils.sh
+docker_login
 WDIR=$(pwd)
+
 
 cd services/server-store/command
 container_name=server-store-command-amqp

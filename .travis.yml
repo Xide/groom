@@ -1,11 +1,9 @@
 sudo: required
 language: python
 services:
-  - docker
-
+- docker
 stages:
-  - deploy
-
+- deploy
 python:
 - '3.6'
 install: pip install -r docs/requirements.txt
@@ -15,9 +13,12 @@ jobs:
     script: bash .travis/deploy_docs.sh
     env:
     - ENCRYPTION_LABEL: d2b4ebb4158b
-    - COMMIT_AUTHOR_EMAIL: "germain.gau@gmail.com"
+    - COMMIT_AUTHOR_EMAIL: germain.gau@gmail.com
     on:
       branch: develop
-
   - stage: deploy
     script: bash .travis/services/deploy_server-store.sh
+env:
+  global:
+  - secure: pV2Nfh8RLmAE9CidpX5yCZck9TloUqSceRFDGRbGVyCB9xiIwBs0PX5Q/1kG/97J9YsCFWMKGBMnvM8ajJxAE8r3xcn061El7UZJYlgM/LOwCKe1mIuAa4YvNr9ok4uUlAymXhE2B16XNXp2qZQur0grDkzDHEZJxva2lefqdBBzYZuUcFSqjtThe4rzTtO8HnGYIQ35ox7Ouh1BNKwwfcdg+Zwxjo9zh4yVSRvdZSz/1GzwO+MW9UI6CEKOORbaH04jrT+Wi3RpL9rL7JiccTD6yloTvSTcmHTyU0kxovZ3dTlBkKGLfGATvqNGrq76Krl04pYTR+yFA9Gkdf/LL/0i81jBU9wG5/xFHNr2qqPI3CU+ql9W8jOUeeIyDm+fZFPYEy7E0kHr7RZszMJPs/Hyh3GWXTNxl5Kain/hnWH+gBC4CjZO0XvU01ZnTQsR4sKUf8xlPWqHu0WOyS/qtxEtqEL/9c0/Ogm/gvySeT7CNw8fn1qWdKHlVkqZtYD8koWtVZNmlGQx/rwlPn/YdL8yPA9PBnoxUOnzJiqe/pyRdkfu3vPYCABLy9dv+AnCwXjEo+HGF8d0IQGKxvzT4bAlC1xBybhUIYEu/2uOsxllFMz0CVSQ0EXOr0nexGvGs1Tr6stNicmwKvBJporoO8zBtvcaUZtnXDsLnktH9KA=
+  - secure: jQJkmsvtDAxPbhJZDwmxI6dz3+TyGYla/dNk1VqCRGeS6c/9OiUuKC/5FMr4TVGBxoE9RmEU438ePHSTbQYiJmIM5MC69ljE6u2FQvJbrvfY5UZJig4mM0qaBSSTboZR4ITJ9YoRsIqJHd4Dn5bnkskqHcdpVBla1RzJxjQPSwPx6CQlmX7Tz1Gm0+lrip69Yh8rLQiIwPE9yPDcB+QIl0wlVN4XztaFZl9Cvz6gXJiSOMe1K9wnMZtxOmADanZA844VNBBrMLvaofEaNQV6cp/uMv/m1EctyCZkYgxLrNt8tnlfDCJ6hfIEWayhUNm3mpQOako227VwPj5f4dAcRLayZDF7MpT+jqKYDEzfpNJabKRhyz1I1EI/7m6mjGiMl757DvQIGYqdJiIMqsFYnvI3TpgrIOSxq6sZvKimXxITIMM8kbPen8ypLf0wC7H1FZfYpYP/vFbaS1yeiUnLo/kIjYQr6dzRFw1enFGH8xJFip1YifZn4J5jpMpOfF7qa4s1aqiHTptPbVERu3fmx98K1o7PUX2F9bmHu+3rOGsnWvYxAlLWslCMQ4Be8lDca/1Py53pVodO/TAbkTCXtMoAJFOI1V0QVgUMNv9KC6skun9TW0H1EEA5ye3iqLm7TpEL61FzEIXSxPcq+LjO3D9e4C3OHIXN9ioa8fp9TCw=
