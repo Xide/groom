@@ -3,13 +3,15 @@ function push_docker_image {
   branch=$TRAVIS_BRANCH
   commit=$TRAVIS_COMMIT
   hub_user=$DOCKER_USERNAME
+  sane_branch=`echo $branch | sed "s|/|-|g" -`
+
   echo "Pushing docker image $1"
   if [ "$branch" == "master" ]; then
     destination="$image:stable"
   elif [ "$branch" == "develop"]; then
     destination="$image:latest"
   else
-    destination="$image-unstable:$branch-$commit"
+    destination="$image-unstable:$sane_branch-$commit"
   fi
   docker tag $image $DOCKER_USERNAME/groom-$destination
   docker push $DOCKER_USERNAME/groom-$destination
