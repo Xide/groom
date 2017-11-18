@@ -1,4 +1,4 @@
-# server_store command service
+# server-store command service
 
 ## Docker image configuration
 
