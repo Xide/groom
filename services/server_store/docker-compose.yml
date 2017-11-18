@@ -1,0 +1,39 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:latest
+
+  mongoui:
+    image: mongoclient/mongoclient
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: mongodb://mongo
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+
+  command:
+    build: ./command
+    restart: always
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      MONGODB_URI: mongodb://mongo
+      DB_NAME: groom
+      RABBITMQ_URI: amqp://rabbitmq:5672
+      AMQP_EXCHANGE: groom
+      AMQP_ROUTING_KEYS: server.requested,server.created,server.spawned,server.expired,server.deleted
+
+  query:
+    build: ./query
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: mongodb://mongo
+      DB_NAME: groom

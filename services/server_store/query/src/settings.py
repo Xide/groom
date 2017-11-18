@@ -3,10 +3,9 @@
 from envparse import Env
 
 arguments = Env(
-    MONGODB_URI=str
-    # RABBITMQ_URI=str
+    MONGODB_URI=str,
+    DB_NAME=str
 )
 
 MONGODB_URI = arguments('MONGODB_URI')
-
-# RABBITMQ_URI = arguments('RABBITMQ_URI')
+DB_NAME = arguments('DB_NAME', default='groom')
