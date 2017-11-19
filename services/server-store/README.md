@@ -39,6 +39,8 @@ Read: HTTP REST endpoint for aggregated state of the servers with a valid UUID a
 
 They are stored in the `instances` collection.
 The common parts of instances records is:
+
+
 | field          | description                                 |
 | -------------- | ------------------------------------------- |
 | type           | the AMQP routing key of the message         |
