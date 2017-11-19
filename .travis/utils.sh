@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function push_docker_image {
   image="$1"
   branch=$TRAVIS_BRANCH
@@ -7,14 +9,18 @@ function push_docker_image {
 
   echo "Pushing docker image $1"
   if [ "$branch" == "master" ]; then
-    destination="$image:stable"
+    destinations="$image:stable"
   elif [ "$branch" == "develop" ]; then
-    destination="$image:latest"
+    destinations="$image:latest"
   else
-    destination="$image-unstable:$sane_branch-$commit"
+    destinations="$image-unstable:$sane_branch-$commit,$image-unstable:$sane_branch-latest"
   fi
-  docker tag $image $DOCKER_USERNAME/groom-$destination
-  docker push $DOCKER_USERNAME/groom-$destination
+  IFS=',' read -ra tags <<<  "$destinations"
+
+  for tag in "${tags[@]}"; do
+    docker tag $image $DOCKER_USERNAME/groom-$tag
+    docker push $DOCKER_USERNAME/groom-$tag
+  done
 }
 
 function docker_login {
