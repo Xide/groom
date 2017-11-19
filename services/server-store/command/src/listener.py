@@ -23,15 +23,17 @@ class AMQPConsumer:
         c.ioloop(callback)
     """
 
-    def __init__(self, broker_uri, exchange, routing_keys):
+    def __init__(self, broker_uri, exchange, routing_keys, credentials=None):
         """Initialize consumer, does not connect.
 
         @param broker_uri: AMQP broker uri.
         @param exchange: the AMQP exchange to listen on.
-        @param: routing_keys: keys to filter exchange messages.
+        @param routing_keys: keys to filter exchange messages.
+        @param credentials: optional (user, password) tuple to override
+            URL parameters credentials.
         """
-        self.broker_uri, self.exchange, self.routing_keys = \
-            broker_uri, exchange, routing_keys
+        self.broker_uri, self.exchange, self.routing_keys, self.credentials = \
+            broker_uri, exchange, routing_keys, credentials
 
         self.connection, self.channel, self.consumer_tag = None, None, None
         self.connected = False
@@ -40,9 +42,13 @@ class AMQPConsumer:
         """Connect to the rabbitMQ server using a basic blocking connection."""
         if not self.connected:
             try:
-                self.connection = pika.BlockingConnection(
-                    pika.URLParameters(self.broker_uri)
-                )
+                parameters = pika.URLParameters(self.broker_uri)
+                if self.credentials is not None:
+                    # Overriding URL parameters
+                    parameters.credentials = pika.PlainCredentials(
+                        *self.credentials
+                    )
+                self.connection = pika.BlockingConnection(parameters)
                 self.channel = self.connection.channel()
 
                 self.channel.exchange_declare(
@@ -77,9 +83,7 @@ class AMQPConsumer:
 
     def __exit__(self, exc_type, exc_value, traceback):
         """Ensure pending messages are requeued + close rabbitMQ connection."""
-        print('QUIT AMQP')
         if self.connected:
-            print('WAS CONNECTED')
             # Requeue pending messages
             if self.consumer_tag:
                 self.channel.basic_cancel(self.consumer_tag)
@@ -111,7 +115,6 @@ class AMQPConsumer:
             return reduce(_reduce_hook, hooks, payload)
 
         def _io(channel, method_frame, header_frame, body):
-            print('_IO')
             processed_payload = _apply_hooks(hooks, (
                 channel, method_frame, header_frame, body
             ))
