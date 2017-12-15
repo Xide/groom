@@ -1,7 +1,23 @@
 # Server store
 
-This component will subscribe to rabbitMQ and persist events into MongoDB.
-It allow querying over HTTP to get the current state of the system.
+This service keep an updated table of the current system state and
+allow querying via an HTTP api.
+
+
+TODO: lib silent connection errors, we need to find out how to define
+      a maximal number of retries.
+
+
+### HTTP API
+
+| Endpoint | Description                                           | Method |
+| -------- | ----------------------------------------------------- | ------ |
+| /health  | Is the service alive ?                                | GET    |
+| /ready   | TODO: need to respond 500 until table is provisionned | GET    |
+| /        | Json object containing the active servers             | GET    |
+
+
+### Kafka event
 
 Events persisted:
 
@@ -11,41 +27,12 @@ Events persisted:
 - server.expired
 - server.deleted
 
-You can customize events persisted with the command container
-environment variable AMQP_ROUTING_KEYS.
-
-## Endpoints
-
-### Data ingestion
-The `command` module handle data ingestion of the AMQP messages, it persist
-them in the `instances` collection of the Mongodb.
-
-### Data access
-The `query` module provide an HTTP api to retreive instances status.
-The endpoints are:
-
-| Endpoint         | description                                    |
-| ---------------- | ---------------------------------------------- |
-| /v1/status       | List the current state of all active instances |
-| /v1/status/{uid} | State of the instance `{uid}`                  |
-
-## Messages format
-
-Store: send an AMQP payload on the exchange with one of the routing key `server.*` listed above. The data of the payload must be a valid JSON UTF-8 encoded in the format described below
-
-Read: HTTP REST endpoint for aggregated state of the servers with a valid UUID attributed.
-
-### MongoDB records
-
-They are stored in the `instances` collection.
-The common parts of instances records is:
-
 
 | field          | description                                 |
 | -------------- | ------------------------------------------- |
 | type           | the AMQP routing key of the message         |
 | event.date_iso | Date at which this event entered the system |
-| uid            | UUID attributed to the server on a `server.created` event                                            |
+| uid            | UUID attributed to the server on a `server.created` event   
 
 Example:
 
@@ -58,6 +45,3 @@ Example:
   }
 }
 ```
-
-## Deployment
-TODO

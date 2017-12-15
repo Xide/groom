@@ -1,0 +1,26 @@
+{
+  "name": "groom-server-store",
+  "version": "0.0.1",
+  "description": "Aggregate proxy history to generate current system state",
+  "scripts": {
+    "start:dev": "npm run build:dev && node -r dotenv/config dist/main.js dotenv_config_path=./config/defaults.env",
+    "build:dev": "npm run build:production",
+    "start:production": "node dist/main.js",
+    "build:production": "babel src -d dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Germain GAU",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015-node6": "^0.4.0"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "envalid": "^4.1.2",
+    "express": "^4.16.2",
+    "kafka-streams": "^3.0.0"
+  }
+}
