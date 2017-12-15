@@ -5,12 +5,7 @@ docker_login
 WDIR=$(pwd)
 
 
-cd services/server-store/command
-container_name=server-store-command-amqp
-docker build -t $container_name .
-push_docker_image $container_name
-
-cd services/server-store/query
-container_name=server-store-query-http
+pushd services/server-store
+container_name=server-store
 docker build -t $container_name .
 push_docker_image $container_name
