@@ -8,8 +8,10 @@ set -xe # Exit with nonzero exit code if anything fails
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
+source ./.travis/utils.sh
+
 function doCompile {
-  mkdocs build -d out
+  build_docs
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify

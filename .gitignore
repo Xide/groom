@@ -1,3 +1,5 @@
+docs/pages/assets/diagrams/*.png
+
 .travis/deploy_key
 *.tgz
 *.tar.gz
